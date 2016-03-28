@@ -1,3 +1,12 @@
+h1, h2 ,h3 ,h4 ,h5 ,h6 ,p ,li {
+    font-family: 'Ropa Sans', sans-serif;
+}
+
+p, label, div {
+    font-family: 'Ropa Sans', sans-serif;
+    font-size: 1.15em;
+}
+
 body {
   height: 100vh;
   width: 100%;
@@ -11,7 +20,7 @@ body {
 
 .inner-wrapper {
   /*border: 1px dotted black;*/
-  height: 85%;
+  height: 75%;
   width: 85%;
   margin: 0 auto;
 }
@@ -82,6 +91,11 @@ body {
     transition: all 0.3s;
 }
 
+#year {
+  color: #AC2005;
+  border: none;
+}
+
 #slider-range {
     width: 90%;
     padding: 0;
@@ -91,4 +105,8 @@ body {
 
 .ui-slider-handle {
   background: #AC2005 !important;
+}
+
+.ui-widget-content {
+  background: #DB1414 !important;
 }

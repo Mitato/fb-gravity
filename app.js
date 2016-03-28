@@ -36,54 +36,63 @@ $(document).ready(function() {
 
     svg.call(tip);
 
-    d3.json("test.json", function(err, data) {
-        if (err) {
-            console.log(err);
-        }
-        console.log(data);
+    var year = "";
 
-        var path = svg.selectAll(".solidArc")
-                .data(pie(data))
-                .enter().append("path")
-                .attr("fill", function(d) { 
-                    return d.data.color; 
-                })
-                .attr("class", "solidArc")
-                .attr("stroke", "gray")
-                .attr("d", arc)
-                .on('mouseover', function(d) {
-                    tip.show(d.data);
-                })
-                .on('mouseout', tip.hide);
-
-        var outerPath = svg.selectAll(".outlineArc")
-                .data(pie(data))
-                .enter().append("path")
-                .attr("fill", "none")
-                .attr("stroke", "gray")
-                .attr("class", "outlineArc")
-                .attr("d", outlineArc);
-
-        var monthInd = 1;
-        $( "#slider-range" ).slider({
-            range: "max",
-            min: 0,
-            max: 36,
-            value: 0,
-            step: 1,
-            slide: function( event, ui ) {
-                $( "#year" ).val( ui.value );
-                monthInd += 1;
-                if (monthInd > 12) {
-                    monthInd = 1;
-                }
-                setMonth(getMonth(monthInd));
+    function draw(ind) {
+        d3.json("sentiment_month.json", function(err, data) {
+            if (err) {
+                console.log(err);
             }
+            year = data.year;
+            data = data[ind]
+
+            var path = svg.selectAll(".solidArc")
+                    .data(pie(data))
+                    .enter().append("path")
+                    .attr("fill", function(d) { 
+                        return d.data.color; 
+                    })
+                    .attr("class", "solidArc")
+                    .attr("stroke", "gray")
+                    .attr("d", arc)
+                    .on('mouseover', function(d) {
+                        tip.show(d.data);
+                    })
+                    .on('mouseout', tip.hide);
+
+            var outerPath = svg.selectAll(".outlineArc")
+                    .data(pie(data))
+                    .enter().append("path")
+                    .attr("fill", "none")
+                    .attr("stroke", "gray")
+                    .attr("class", "outlineArc")
+                    .attr("d", outlineArc);
+
+            setMonth(getMonth(monthInd));
         });
+    }
 
-        $( "#year" ).val($( "#slider-range" ).slider( "value") );
-
+    var monthInd = 1;
+    $( "#slider-range" ).slider({
+        range: "max",
+        min: 1,
+        max: 12,
+        value: 0,
+        step: 1,
+        slide: function( event, ui ) {
+            svg.selectAll("*").remove();
+            var diff = parseInt(ui.value) - parseInt($( "#year" ).val())
+            
+            $( "#year" ).val( ui.value );
+            monthInd += diff;
+            if (monthInd > 12) {
+                monthInd = 1;
+            }
+            
+            draw(monthInd.toString())
+        }
     });
+    $( "#year" ).val($( "#slider-range" ).slider( "value") );
 
     function setMonth(month) {
         svg.selectAll(".month-val").remove();
@@ -91,7 +100,7 @@ $(document).ready(function() {
             .attr("class", "month-val")
             .attr("dy", ".35em")
             .attr("text-anchor", "middle") // text-align: right
-            .text(month);
+            .text(month + " " + year);
     }
 
     function getMonth(ind) {
@@ -103,6 +112,8 @@ $(document).ready(function() {
         .attr("class", "month-val")
         .attr("dy", ".35em")
         .attr("text-anchor", "middle") // text-align: right
-        .text("Jan");
+        .text("Jan " + year);
+
+    draw("1");
 
 });

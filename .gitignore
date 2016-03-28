@@ -6,3 +6,5 @@ data.json
 test.html
 .DS_Store
 test.json
+sentiment_month.json
+sentiment_year.json
