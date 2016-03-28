@@ -7,4 +7,9 @@ test.html
 .DS_Store
 test.json
 sentiment_month.json
-sentiment_year.json
+sentiment_month_13.json
+sentiment_month_14.json
+data_13.json
+data_14.json
+test2.html
+data1/

@@ -2,7 +2,7 @@ h1, h2 ,h3 ,h4 ,h5 ,h6 ,p ,li {
     font-family: 'Ropa Sans', sans-serif;
 }
 
-p, label, div {
+p, label {
     font-family: 'Ropa Sans', sans-serif;
     font-size: 1.15em;
 }
@@ -109,4 +109,18 @@ body {
 
 .ui-widget-content {
   background: #DB1414 !important;
+}
+
+select {
+  margin: 0 auto;
+}
+
+#chooser {
+  margin: 0 auto;
+  text-align: center; 
+}
+
+.ui-selectmenu-button {
+  width: 80px !important;
+  font-size: 0.85em !important;
 }

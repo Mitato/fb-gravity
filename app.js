@@ -38,8 +38,8 @@ $(document).ready(function() {
 
     var year = "";
 
-    function draw(ind) {
-        d3.json("sentiment_month.json", function(err, data) {
+    function draw(ind, file) {
+        d3.json(file, function(err, data) {
             if (err) {
                 console.log(err);
             }
@@ -89,7 +89,7 @@ $(document).ready(function() {
                 monthInd = 1;
             }
             
-            draw(monthInd.toString())
+            draw(monthInd.toString(), filename)
         }
     });
     $( "#year" ).val($( "#slider-range" ).slider( "value") );
@@ -114,6 +114,24 @@ $(document).ready(function() {
         .attr("text-anchor", "middle") // text-align: right
         .text("Jan " + year);
 
-    draw("1");
+    var filename = "sentiment_month_14.json"
+    draw("1", filename);
+
+    $( "#speed" ).selectmenu({
+        change: function( event, data ) {
+            console.log(typeof data.item.value.toString());
+            if (data.item.value.toString() === "2014") {
+                console.log(1);
+                filename = "sentiment_month_14.json"
+            }
+            else if (data.item.value.toString() === "2013") {
+                console.log(2);
+                filename = "sentiment_month_13.json"
+            }
+            svg.selectAll("*").remove();
+            draw(monthInd.toString(), filename)
+        }
+     });
+
 
 });
