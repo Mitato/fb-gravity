@@ -2,6 +2,7 @@ messages.htm
 fb-message-parser.py
 fb-message-sentiment.py
 data
+data.json
 test.html
 .DS_Store
 test.json
